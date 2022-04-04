@@ -4,14 +4,14 @@ const router = express.Router();
 const Contact = require("../database/models/contacts")
 
 //Obtener data
-router.get("/contacts", (req, res, next) => {
+router.get("/", (req, res, next) => {
     Contact.find(function(err, contacts){
         res.json(contacts);
     })
 })
 
 //Crear contacto
-router.post("/contact",(req, res, next) => {
+router.post("/",(req, res, next) => {
     let newContact = new Contact({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -28,7 +28,7 @@ router.post("/contact",(req, res, next) => {
 })
 
 //borrar contacto
-router.delete("/contact/:id",(req, res, next) => {
+router.delete("/:id",(req, res, next) => {
     Contact.remove({_id: req.params.id}, function(err, result){
         if(err){
             res.json(err);

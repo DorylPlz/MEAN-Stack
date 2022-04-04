@@ -11,10 +11,12 @@ app.listen(port,()=>{
     console.log("Servidor iniciado en el puerto "+port);
 });
 
-const route = require("./routes/route");
+
 app.use(cors());
 app.use(bodyparser.json());
 app.use(express.static(path.join(__dirname, "public")));
+
+
 
 mongoose.connect("mongodb://localhost:27017/contactlist");
 
@@ -29,7 +31,11 @@ mongoose.connection.on("error",(err)=>{
 
 })
 
-app.use("/api", route);
+const contacts = require("./routes/contacts");
+app.use("/api/contacts", contacts);
+
+const user = require("./routes/user");
+app.use("/api/user", user);
 
 app.get('/',(req, res)=>{
     res.send("foobar");
